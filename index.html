@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda</title>
+
+    <link rel="icon" href="https://pbs.twimg.com/media/FTKJvpTUcAATxAC?format=jpg&name=large" type="image/x-icon">
+    <link rel=" stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <h1>Session 6 Agenda</h1>
+
+    <details>
+        <summary class="main-summary">Task Solution</summary>
+        <p>Write a C code that apply 8 different animations on 8 LED string
+            based on the value of 3-way DIP Switch as
+            following:</p>
+        <img src="images/task2.JPG" alt="Task Solution" width="500" height="300">
+        <details>
+            <summary class="notmain-summary">Arduino Code</summary>
+            <pre>
+                <textarea id="textbox" hidden>int LEDs[8] = {2,3, 4, 5, 6, 7, 8, 9};
+int DIPs[3] = {A0, A1, A2};
+
+void flash()
+{
+    for (int i = 0; i < 8; i++)
+        digitalWrite(LEDs[i], HIGH);
+
+    delay(500);
+
+    for (int i = 0; i < 8; i++)
+        digitalWrite(LEDs[i], LOW);
+}
+
+void shiftRight()
+{
+    for (int i = 0; i < 8; i++)
+    {
+        digitalWrite(LEDs[i], HIGH);
+        delay(250);
+        digitalWrite(LEDs[i], LOW);
+    }
+}
+
+void shiftLeft()
+{
+    for (int i = 8; i >= 0; i--)
+    {
+        digitalWrite(LEDs[i], HIGH);
+        delay(250);
+        digitalWrite(LEDs[i], LOW);
+    }
+}
+
+void ledsConverging()
+{
+    for (int i = 0; i < 4; i++)
+    {
+        digitalWrite(LEDs[i], HIGH);
+        digitalWrite(LEDs[7 - i], HIGH);
+        delay(300);
+        digitalWrite(LEDs[i], LOW);
+        digitalWrite(LEDs[7 - i], LOW);
+    }
+}
+
+void ledsDiverging()
+{
+    for (int i = 3; i >= 0; i--)
+    {
+        digitalWrite(LEDs[i], HIGH);
+        digitalWrite(LEDs[7 - i], HIGH);
+        delay(300);
+        digitalWrite(LEDs[i], LOW);
+        digitalWrite(LEDs[7 - i], LOW);
+    }
+}
+
+void pingPongEffect()
+{
+    for (int i = 0; i < 8; i++)
+    {
+        digitalWrite(LEDs[i], HIGH);
+        delay(250);
+        digitalWrite(LEDs[i], LOW);
+    }
+    for (int i = 7; i >= 0; i--)
+    {
+        digitalWrite(LEDs[i], HIGH);
+        delay(250);
+        digitalWrite(LEDs[i], LOW);
+    }
+}
+
+void incrementingSnakeEffect()
+{
+    for (int i = 0; i < 8; i++)
+    {
+        digitalWrite(LEDs[i], HIGH);
+        delay(250);
+    }
+    for (int i = 0; i < 8; i++)
+    {
+        digitalWrite(LEDs[i], LOW);
+        delay(250);
+    }
+}
+
+void ledsConvergeDiverge()
+{
+    ledsConverging();
+    ledsDiverging();
+}
+
+
+void setup()
+{
+    for (int i = 0; i < 8; i++)
+        pinMode(LEDs[i], OUTPUT);
+
+    for (int i = 0; i < 3; i++)
+        pinMode(DIPs[i], INPUT_PULLUP);
+}
+
+void loop()
+{
+    // Combine the DIPs states into a single integer value
+    int DipValue = (digitalRead(DIPs[2]) << 2) + (digitalRead(DIPs[1]) << 1) + digitalRead(DIPs[0]);
+
+    // Call the corresponding LED animation function based on the DIP value
+    switch (DipValue) {
+    case 0:
+        flash();
+        break;
+    case 1:
+        shiftLeft();
+        break;
+    case 2:
+        shiftRight();
+        break;
+    case 3:
+        ledsConverging();
+        break;
+    case 4:
+        ledsDiverging();
+        break;
+    case 5:
+        pingPongEffect();
+        break;
+    case 6:
+        incrementingSnakeEffect();
+        break;
+    case 7:
+        ledsConvergeDiverge();
+        break;
+    default:
+        break;
+    }
+    // Add a delay to avoid rapid switching (adjust as needed)
+    delay(50);
+}</textarea>
+                <button id="btnCopy" onclick="selectText(); copyText()">Copy Code</button>
+                    
+            <code id="codeBlock"  class="code-block"><span class="code-keyword">int</span> LEDs[8] = {2,3, 4, 5, 6, 7, 8, 9};
+<span class="code-keyword">int</span> DIPs[3] = {A0, A1, A2};
+
+<span class="code-keyword">void</span> flash()
+{
+    <span class="code-comment">for</span> (<span class="code-keyword">int</span> i = 0; i < 8; i++)
+      <span class="code-string">digitalWrite</span>(LEDs[i], <span class="code-keyword"></span>HIGH</span>);
+
+    <span class="code-string">delay</span>(500);
+
+    <span class="code-comment">for</span> (<span class="code-keyword">int</span> i = 0; i < 8; i++)
+      <span class="code-string">digitalWrite</span>(LEDs[i], LOW);
+}
+
+<span class="code-keyword">void</span> shiftRight()
+{
+  <span class="code-comment">for</span> (<span class="code-keyword">int</span> i = 0; i < 8; i++)
+  {
+      <span class="code-string">digitalWrite</span>(LEDs[i], <span class="code-keyword">HIGH</span>);
+      <span class="code-string">delay</span>(250);
+      <span class="code-string">digitalWrite</span>(LEDs[i], LOW);
+  }
+}
+
+<span class="code-keyword">void</span> shiftLeft()
+{
+    <span class="code-comment">for</span> (<span class="code-keyword">int</span> i = 8; i >= 0; i--)
+    {
+        <span class="code-string">digitalWrite</span>(LEDs[i], <span class="code-keyword">HIGH</span>);
+        <span class="code-string">delay</span>(250);
+        <span class="code-string">digitalWrite</span>(LEDs[i], LOW);
+    }
+}
+
+<span class="code-keyword">void</span> ledsConverging()
+{
+    <span class="code-comment">for</span> (<span class="code-keyword">int</span> i = 0; i < 4; i++)
+    {
+        <span class="code-string">digitalWrite</span>(LEDs[i], <span class="code-keyword">HIGH</span>);
+        <span class="code-string">digitalWrite</span>(LEDs[7 - i], <span class="code-keyword">HIGH</span>);
+        <span class="code-string">delay</span>(300);
+        <span class="code-string">digitalWrite</span>(LEDs[i], LOW);
+        <span class="code-string">digitalWrite</span>(LEDs[7 - i], LOW);
+    }
+}
+
+<span class="code-keyword">void</span> ledsDiverging()
+{
+    <span class="code-comment">for</span> (<span class="code-keyword">int</span> i = 3; i >= 0; i--)
+    {
+        <span class="code-string">digitalWrite</span>(LEDs[i], <span class="code-keyword">HIGH</span>);
+        <span class="code-string">digitalWrite</span>(LEDs[7 - i], <span class="code-keyword">HIGH</span>);
+        <span class="code-string">delay</span>(300);
+        <span class="code-string">digitalWrite</span>(LEDs[i], LOW);
+        <span class="code-string">digitalWrite</span>(LEDs[7 - i], LOW);
+    }
+}
+
+<span class="code-keyword">void</span> pingPongEffect()
+{
+    <span class="code-comment">for</span> (<span class="code-keyword">int</span> i = 0; i < 8; i++)
+    {
+        <span class="code-string">digitalWrite</span>(LEDs[i], <span class="code-keyword">HIGH</span>);
+        <span class="code-string">delay</span>(250);
+        <span class="code-string">digitalWrite</span>(LEDs[i], LOW);
+    }
+    <span class="code-comment">for</span> (<span class="code-keyword">int</span> i = 7; i >= 0; i--)
+    {
+        <span class="code-string">digitalWrite</span>(LEDs[i], <span class="code-keyword">HIGH</span>);
+        <span class="code-string">delay</span>(250);
+        <span class="code-string">digitalWrite</span>(LEDs[i], LOW);
+    }
+}
+
+<span class="code-keyword">void</span> incrementingSnakeEffect()
+{
+    <span class="code-comment">for</span> (<span class="code-keyword">int</span> i = 0; i < 8; i++)
+    {
+        <span class="code-string">digitalWrite</span>(LEDs[i], <span class="code-keyword">HIGH</span>);
+        <span class="code-string">delay</span>(250);
+    }
+    <span class="code-comment">for</span> (<span class="code-keyword">int</span> i = 0; i < 8; i++)
+    {
+        <span class="code-string">digitalWrite</span>(LEDs[i], LOW);
+        <span class="code-string">delay</span>(250);
+    }
+}
+
+<span class="code-keyword">void</span> ledsConvergeDiverge()
+{
+    ledsConverging();
+    ledsDiverging();
+}
+
+
+<span class="code-keyword">void</span> setup()
+{
+    <span class="code-comment">for</span> (<span class="code-keyword">int</span> i = 0; i < 8; i++)
+        <span class="code-string">pinMode</span>(LEDs[i], OUTPUT);
+
+    <span class="code-comment">for</span> (<span class="code-keyword">int</span> i = 0; i < 3; i++)
+        <span class="code-string">pinMode</span>(DIPs[i], INPUT_PULLUP);
+}
+
+<span class="code-keyword">void</span> loop()
+{
+    // Combine the DIPs states into a single integer value
+    <span class="code-keyword">int</span> DipValue = (<span class="code-string">digitalRead</span>(DIPs[2]) << 2) + (<span class="code-string">digitalRead</span>(DIPs[1]) << 1) + <span class="code-string">digitalRead</span>(DIPs[0]);
+
+    // Call the corresponding LED animation function based on the DIP value
+  <span class="code-comment">switch</span> (DipValue) {
+    <span class="code-comment">case</span> 0:
+        flash();
+        <span class="code-comment"></span>break</span>;
+    <span class="code-comment">case</span> 1:
+        shiftLeft();
+        <span class="code-comment">break</span>;
+    <span class="code-comment">case</span> 2:
+        shiftRight();
+        <span class="code-comment">break</span>;
+    <span class="code-comment">case</span> 3:
+        ledsConverging();
+        <span class="code-comment">break</span>;
+    <span class="code-comment">case</span> 4:
+        ledsDiverging();
+        <span class="code-comment">break</span>;
+    <span class="code-comment">case</span> 5:
+        pingPongEffect();
+        <span class="code-comment">break</span>;
+    <span class="code-comment">case</span> 6:
+        incrementingSnakeEffect();
+        <span class="code-comment">break</span>;
+    <span class="code-comment">case</span> 7:
+        ledsConvergeDiverge();
+        <span class="code-comment">break</span>;
+    default:
+        <span class="code-comment">break</span>;
+  }
+    // Add a delay to avoid rapid switching (adjust as needed)
+    <span class="code-string">delay</span>(50);
+}
+            </code>
+        </pre>
+        </details>
+    </details>
+    <details>
+        <summary class="main-summary">Floating Pin</summary>
+        <p>A floating pin, also known as a floating input or floating state, refers to a digital or analog pin on a
+            microcontroller or other electronic device that is not actively driven to a high or low voltage level by an
+            external source or by the microcontroller itself. Instead, it is left unconnected or not driven, allowing it
+            to "float" to a voltage level determined by various environmental factors such as nearby electrical noise,
+            electromagnetic interference, or capacitive coupling.</p>
+        <a href="https://makeabilitylab.github.io/physcomp/arduino/buttons.html" target="_blank" rel="noopener">More
+            about
+            Floating pin</a>
+    </details>
+    <details>
+        <summary class="main-summary">INPUT and INPUT_PULLUP</summary>
+        <p>INPUT_PULLUP is a mode that is used to enable the internal
+            pull-up resistor of the microcontroller. When
+            INPUT_PULLUP is used, the pin is set to INPUT mode and the
+            internal pull-up resistor is enabled. This means
+            that the pin will be in a HIGH state when it is not connected to
+            anything. This is useful when you want to
+            connect a switch to a pin and you want to read the state of the
+            switch. When the switch is open, the pin
+            will
+            be in a HIGH state, and when the switch is closed, the pin will
+            be in a LOW state.</p>
+        <img src="https://pbs.twimg.com/media/EsOF6QZXEAg5Mmh?format=png&name=900x900" alt="INPUT and INPUT_PULLUP"
+            width="500" height="300">
+        <img src="https://www.arduinoall.net/arduino-tutor/wp-content/uploads/2018/02/Snap33.jpg"
+            alt="INPUT and INPUT_PULLUP" width="500" height="300">
+    </details>
+    <details>
+        <summary class="main-summary">DIP Switch</summary>
+        <p>A DIP switch is a manual electric switch that is packaged with others in a group in a standard dual in-line
+            package (DIP). The term may refer to each individual switch, or to the unit as a whole. This type of switch
+            is
+            designed to be used on a printed circuit board along with other electronic components and is commonly used
+            to
+            customize the behavior of an electronic device for specific situations.</p>
+        <img src="https://mecato.net/wp-content/uploads/2020/02/dip-sw-4p-1000x1000-1.jpg" alt="DIP Switch"
+            width="500px" height="500px">
+
+
+
+
+
+
+    </details>
+    <details>
+        <summary class="main-summary">LCD (Liquid Crystal Display)</summary>
+        <p>LCD (Liquid Crystal Display) is a type of flat panel display which uses liquid crystals in its primary form
+            of
+            operation. LEDs have a large and varying set of use cases for consumers and businesses, as they can be
+            commonly
+            found in digital clocks, computer monitors, and instrument panels. LCDs allow displays to be much thinner
+            than
+            cathode ray tube technology. It is a low power consumption technology used in many applications such as
+            computer monitors, television, instrument panels, aircraft cockpit displays, and signage.</p>
+        <img src="https://5.imimg.com/data5/SELLER/Default/2022/8/EH/VY/XV/43948449/16x2-lcd-display.jpg"
+            alt="LCD (Liquid Crystal Display)" width="500px" height="500px">
+        <img src="https://kut.ai/microcontrollers/img/16X2-LCD-PINS.PNG" alt="LCD (Liquid Crystal Display)"
+            width="800px" height="500px">
+
+
+    </details>
+
+
+
+
+    <footer>
+        <div class="rounded-social-buttons">
+            <!-- <a class="social-button facebook" href="https://www.facebook.com/" target="_blank"><i
+                    class="fab fa-facebook-f"></i></a>
+            <a class="social-button twitter" href="https://www.twitter.com/" target="_blank"><i
+                    class="fab fa-twitter"></i></a> 
+             <a class="social-button tiktok" href="https://www.tiktok.com/" target="_blank"><i
+                    class="fab fa-tiktok"></i></a>
+            <a class="social-button youtube" href="https://www.youtube.com/" target="_blank"><i
+                    class="fab fa-youtube"></i></a>
+            <a class="social-button instagram" href="https://www.instagram.com/" target="_blank"><i
+                    class="fab fa-instagram"></i></a> -->
+
+            <a class="social-button linkedin" href="https://www.linkedin.com/in/mohamed-khodry/" target="_blank"
+                rel="noopener" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a class="social-button github" href="https://github.com/moekhodry11" target="_blank" rel="noopener"
+                title="GitHub"><i class="fab fa-github"></i></a>
+
+
+
+        </div>
+    </footer>
+
+
+
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"
+        integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc"
+        crossorigin="anonymous"></script>
+    <script src="js/script.js"></script>
+
+
+
+</body>
+
+</html>
