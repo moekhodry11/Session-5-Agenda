@@ -1,22 +1,20 @@
 body{
   font-family: 'Courier New', Courier, monospace;
-  background-color: #073044;
-  color: #efe5bb;
+  background-color: #083045;
+  color: #EED369;
   margin: 0;
   padding: 10px; 
   box-sizing: border-box;
+}
+
+p {
+  font-size: 1.5em;
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
   /* make it in center */
-  
-  
+  text-align: center;
+  color: #e7e8d9;
 }
-
-/* i want to make the body background gradent */
-body {
-  background: rgb(7,48,68);
-
-}
-
-
 
 .code-comment {
   color: #8c9664; /* Green */
@@ -34,12 +32,6 @@ body {
   color: #a85a21; /* Red */
 }
 
-
-
-
-
-/* h1 is the main title of the agenda so can you make a good style for it */
-
 h1 {
   text-align: center;
   font-size: 3em;
@@ -55,13 +47,9 @@ h1 {
 
 details {
   margin-bottom: 1em;
-  /* color and theme for the arrow */
   color: #e7d57b;
   font-size: 1em;
   margin-right: 0.5em;
-  
-  
-  
 }
 
 @keyframes asd {
@@ -92,46 +80,34 @@ details summary:focus ~ * {
   
 }
 details summary:active ~ * {
-  
   -webkit-animation: none;
   animation: none;
 }
-
-
-/* main summary */
-
 
 .main-summary    {
   cursor: pointer;
   font-size: 2em;
   margin-bottom: 0.5em;
   margin-top: 0.5em;
-  /* make it in center */
   text-align: center;
-  /* make it bold */
   font-weight: bold;
 }
 
-/* add hover effect */
 .main-summary:hover {
   color: rgb(98, 86, 35);
-  /* make it slow */
   transition: 0.5s;
+  
   
 }
 
 .notmain-summary    {
   cursor: pointer;
-  font-size: 1.5em;
+  font-size: 1.3em;
   margin-bottom: 0.5em;
   margin-top: 0.5em;
   /* make it in center */
-  text-align: left;
+  text-align: center;
 }
-
-/* evry time i opne the summary it make the animation */
-
-
 
 pre {
   background-color: #17a1a4;
@@ -150,8 +126,12 @@ pre {
   padding: 1em 1.5em;
   display: block;
   word-wrap: break-word;
-  height: 592px;
-  width: 410px;
+  height: 800px;
+  width: 700px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+
 }
 
 
@@ -169,8 +149,8 @@ code {
   padding: 2px 4px;
   display: block;
   word-wrap: break-word;
-  height: 400px;
-  width: 400px;
+  height: 594px;
+  width: 690px;
 }
 
 button {
@@ -188,13 +168,11 @@ button {
   margin-top: 0%;
   margin-bottom: 0%;
   margin-right: 0%;
-
-  /* make it in center */
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 50%;
-  /* make text in center */
+  width: 15%;
+  height: 4%;
   text-align: center;
 }
 
@@ -204,17 +182,21 @@ button:hover {
 }
 
 a {
-  color: #e7d57b;
-  text-decoration: none;
-  /* make line under it */
-  border-bottom: 1px solid #e7d57b;
+  color: #dad6c3;
+  display: block;
+  text-align: center;
+
+  font-size: 1.5em;
+  
+  
+  
 }
 
 a:hover {
-  color: #64560d;
-  text-decoration: none;
-  /* make line under it */
-  border-bottom: 1px solid #64560d;
+  color: #e0dccb;
+  
+  font-size: 1.7em;
+  
 }
 
 footer {
@@ -279,8 +261,6 @@ body footer div{
   align-items: center;  
   bottom: 0;
   position: absolute;
-
-  /* i want to make the footer in the bottom of the page */
   position: fixed;
 
 }
@@ -417,4 +397,11 @@ textarea {
   border-color: #000000;
 }
 
+/* center all images */
 
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
